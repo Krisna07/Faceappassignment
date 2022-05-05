@@ -1,0 +1,23 @@
+.login-Field {
+  width: fit-content;
+}
+.inputFields input {
+  background: none;
+  /* padding-left: 10px; */
+  letter-spacing: 40px;
+  float: left;
+  border: 0;
+  color: white;
+  background-image: linear-gradient(
+    to left,
+    rgb(255, 255, 255) 70%,
+    rgba(255, 255, 255, 0) 0%
+  );
+  background-position: bottom;
+  background-size: 45px 1px;
+  background-repeat: repeat-x;
+  background-position-x: 35px;
+  width: 100%;
+  outline: none;
+  overflow-x: visible;
+}
