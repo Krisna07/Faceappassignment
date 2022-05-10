@@ -27,7 +27,7 @@ const Login = () => {
     e.preventDefault();
     if (userValidation()) {
       localStorage.setItem("user", user);
-      return history.push("/auth");
+      return history("/auth");
     }
   };
 

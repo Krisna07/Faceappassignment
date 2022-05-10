@@ -21,7 +21,7 @@ const setCriminal = asyncHandler(async (req, res) => {
 
   if (!name || !Age || !NoOffence || !Descriptors) {
     res.status(400);
-    throw new Error("Please add a text field!");
+    throw new Error("Please fill required fields!");
   }
   const criminal = await Criminal.create({
     name,

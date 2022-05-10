@@ -13,7 +13,7 @@ const Auth = () => {
     e.preventDefault();
     console.log("form submitted");
     localStorage.setItem("user", "authuser");
-    history.push("/");
+    history("/");
   };
   const [count, setCount] = useState(60);
   const [inputValue, setInput] = useState("");

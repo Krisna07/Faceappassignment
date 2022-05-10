@@ -2,7 +2,7 @@ const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = require("../Model/userMOdel");
-const e = require("express");
+const express = require("express");
 
 //@desc register new user
 //@routes POST api/User
@@ -75,10 +75,5 @@ const loginUser = asyncHandler(async (req, res) => {
 const getMe = asyncHandler(async (req, res) => {
   res.send("user data displayed");
 });
-
-//generate Token
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_secret, { expiresIn: "30d" });
-};
 
 module.exports = { registerUser, loginUser, getMe };

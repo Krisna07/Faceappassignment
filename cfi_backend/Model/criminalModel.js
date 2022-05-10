@@ -19,6 +19,10 @@ const criminalSchema = mongoose.Schema(
       type: Boolean,
       require: [true, "Please add a status"],
     },
+    // Image: {
+    //   type: URL,
+    //   require: [true, "Please add atleast one image"],
+    // },
     Descriptors: {
       type: Array,
       require: [true, "Please add the face discriptor for the Criminals"],
