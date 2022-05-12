@@ -46,9 +46,7 @@ const Home = ({ criminalList }) => {
             color: "red",
             fontSize: "40px",
           }}
-        >
-          <AlertPage criminal={criminalProfile} />
-        </div>
+        ></div>
       ) : (
         ""
       )}
