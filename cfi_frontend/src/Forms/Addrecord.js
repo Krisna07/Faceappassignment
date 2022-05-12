@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./addrecord.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Addrecord = () => {
   const [formData, setFromdata] = useState({
@@ -11,6 +12,7 @@ const Addrecord = () => {
     address: "",
   });
   const { name, age, noOffence, address, lastname } = formData;
+  const history = useNavigate();
 
   const onchange = (e) => {
     setFromdata((prevState) => ({
@@ -20,7 +22,9 @@ const Addrecord = () => {
   };
   const onsubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:5000/criminal/");
+    history("/");
+
+    // axios.post("http://localhost:5000/criminal/");
   };
 
   return (

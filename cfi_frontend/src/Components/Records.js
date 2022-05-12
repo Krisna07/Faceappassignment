@@ -6,6 +6,7 @@ import Details from "./Details";
 
 const Records = ({ criminalList }) => {
   const [action, setAction] = useState(false);
+  const [detailss, setDetaills] = useState();
 
   console.log(criminalList);
 
@@ -29,10 +30,8 @@ const Records = ({ criminalList }) => {
   const viewDetails = (id) => {
     console.log(id);
 
-    const thiscriminal = criminalList.find(() => {
-      return (criminalList._id = id);
-    });
-    console.log(thiscriminal);
+    setDetaills(criminalList.find((obj) => obj._id === id));
+    console.log(detailss);
   };
   // const imageSource = (source) => {
   //   return btoa(String.fromCharCode(...new Uint8Array(source.Image.data.data)));
@@ -97,7 +96,7 @@ const Records = ({ criminalList }) => {
         </div>
       </div>
       <div className="details">
-        <Details />
+        {detailss ? <Details detail={detailss} /> : ""}
       </div>
     </div>
   );

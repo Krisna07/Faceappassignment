@@ -1,5 +1,5 @@
 // import { render } from "@testing-library/react";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Axios from "axios";
 
 import { useNavigate } from "react-router-dom";
@@ -8,15 +8,23 @@ import AlertPage from "./AlertPage";
 import VideoInput from "./VideoInput";
 
 const Home = ({ criminalList }) => {
+  const history = useNavigate();
   const getCriminal = () => {
     return localStorage.getItem("Matched");
   };
 
+  useEffect(() => {
+    const getUser = localStorage.getItem("user");
+    console.log(getUser);
+    if (!getUser) {
+      history("/login");
+    }
+  }, []);
+
+  const [criminalProfile, setCriminalProfile] = useState();
   const found = getCriminal();
   console.log(found);
-  const criminalProfile = criminalList.find(() => {
-    return (criminalList.name = found);
-  });
+
   console.log(criminalList);
   console.log(criminalProfile);
   if (criminalProfile) {
@@ -26,14 +34,13 @@ const Home = ({ criminalList }) => {
       console.log(response);
     });
   }
-  const history = useNavigate();
 
   return (
     <div style={{ width: "100%", position: "relative" }}>
       <h1>Camera</h1>
       <VideoInput />
 
-      {!criminalProfile ? (
+      {criminalProfile ? (
         <div
           style={{
             width: "100%",
@@ -46,7 +53,9 @@ const Home = ({ criminalList }) => {
             color: "red",
             fontSize: "40px",
           }}
-        ></div>
+        >
+          <AlertPage criminal={criminalProfile} />
+        </div>
       ) : (
         ""
       )}

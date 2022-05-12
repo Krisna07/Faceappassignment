@@ -10,8 +10,11 @@ import Addrecord from "../Forms/Addrecord";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 import ImageInput from "../views/ImageInput";
+import Contactus from "./Contactus";
+import { useNavigate } from "react-router-dom";
 
 const Layout = () => {
+  const history = useNavigate();
   const [criminalList, setCriminalList] = useState([]);
 
   useEffect(() => {
@@ -19,6 +22,11 @@ const Layout = () => {
       .then(async (response) => setCriminalList(response.data.message))
       .catch((err) => console.log(err));
   }, []);
+
+  const logout = () => {
+    localStorage.clear();
+    history("/login");
+  };
   return (
     <>
       <nav className="navbar" style={{ color: "white" }}>
@@ -34,6 +42,10 @@ const Layout = () => {
           <li>
             <Link to="addrecords">Add Records</Link>
           </li>
+          <li>
+            <Link to="contactus">Contact Us</Link>
+          </li>
+          <li onClick={logout}>Logout</li>
         </div>
       </nav>
       <Routes>
@@ -44,6 +56,7 @@ const Layout = () => {
         />
         <Route path="addrecords" element={<Addrecord />} />
         <Route path="addImage" element={<ImageInput />} />
+        <Route path="contactus" element={<Contactus />} />
       </Routes>
       <Footer />
     </>
