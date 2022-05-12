@@ -1,12 +1,17 @@
 const asyncHandler = require("express-async-handler");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const User = require("../Model/userMOdel");
-const express = require("express");
+
+const User = require("../Model/userModel");
+
 
 //@desc register new user
 //@routes POST api/User
 //@access public
+const getUser = asyncHandler(async (req, res) => {
+  const users = await User.find();
+  res.status(200).json({ message: users });
+  res.status(500).json({ message: error });
+});
+
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
@@ -21,13 +26,13 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   //hash password
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt);
+  // const salt = await bcrypt.genSalt(10);
+  // const hashedPassword = await bcrypt.hash(password, salt);
   //create User
   const user = await User.create({
     name,
     email,
-    password: hashedPassword,
+    password,
   });
 
   if (user) {
@@ -35,14 +40,14 @@ const registerUser = asyncHandler(async (req, res) => {
       _id: user.id,
       name: user.name,
       email: user.email,
-      token: generateToken(user._id),
+
     });
   } else {
     res.status(500);
     throw new Error("Invalid user data");
   }
 
-  res.send("New user cretaed");
+  res.send("New user created");
 });
 
 // des authenticate user
@@ -61,7 +66,7 @@ const loginUser = asyncHandler(async (req, res) => {
       _id: user.id,
       name: user.name,
       email: user.email,
-      token: generateToken(user._id),
+
     });
   } else {
     res.status(500);
@@ -76,4 +81,4 @@ const getMe = asyncHandler(async (req, res) => {
   res.send("user data displayed");
 });
 
-module.exports = { registerUser, loginUser, getMe };
+module.exports = { registerUser, loginUser, getMe, getUser };

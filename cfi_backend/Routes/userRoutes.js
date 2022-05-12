@@ -4,12 +4,15 @@ const {
   registerUser,
   loginUser,
   getMe,
+  getUser
 } = require("../Controller/userController");
 
 // const { protect } = require("../Middleware/authMiddleware");
 router.post("/", registerUser);
 router.post("/login", loginUser);
 router.get("/me", getMe);
+router.get("/", getUser);
+
 router.get("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Credentials", "true");
