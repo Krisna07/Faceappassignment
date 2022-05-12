@@ -19,9 +19,12 @@ const criminalSchema = mongoose.Schema(
       type: Boolean,
       require: [true, "Please add a status"],
     },
+    address: {
+      type: String,
+    },
     // Image: {
-    //   type: URL,
-    //   require: [true, "Please add atleast one image"],
+    //   data: Buffer,
+    //   contentType: String,
     // },
     Descriptors: {
       type: Array,

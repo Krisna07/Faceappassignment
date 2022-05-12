@@ -1,0 +1,32 @@
+.addform {
+  display: flex;
+  background: rgb(37, 78, 78);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  border-radius: 10px 0;
+}
+
+.fromData {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+}
+.fromData div {
+  display: grid;
+  text-align: left;
+
+  padding: 1rem;
+}
+.fromData input {
+  padding: 6px 10px;
+  margin: 5px 0;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+}
+.fromData input:focus {
+  background-color: aquamarine;
+}

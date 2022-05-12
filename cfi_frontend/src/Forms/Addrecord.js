@@ -1,6 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
+import "./addrecord.css";
+import axios from "axios";
 
 const Addrecord = () => {
+  const [formData, setFromdata] = useState({
+    name: "",
+    lastname: "",
+    age: "",
+    noOffence: "",
+    address: "",
+  });
+  const { name, age, noOffence, address, lastname } = formData;
+
+  const onchange = (e) => {
+    setFromdata((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  const onsubmit = (e) => {
+    e.preventDefault();
+    axios.post("http://localhost:5000/criminal/");
+  };
+
   return (
     <div>
       <div
@@ -11,19 +33,79 @@ const Addrecord = () => {
         }}
       >
         <div className="pageContainer">
-          <form action="" className="formContainer">
+          <form
+            method="POST"
+            action="/"
+            className="addform"
+            onSubmit={onsubmit}
+          >
             <h2>Add New Criminal</h2>
 
-            <div className="login-Field">
-              <label htmlFor="">First Name</label>
-              <input type="text" />
+            <div className="fromData">
+              <div>
+                <label htmlFor="">First Name*</label>
+                <input
+                  type="text"
+                  value={name}
+                  name="name"
+                  onChange={onchange}
+                />
+              </div>
+              <div>
+                <label htmlFor="">Last Name*</label>
+                <input
+                  type="text"
+                  value={lastname}
+                  name="lastname"
+                  onChange={onchange}
+                />
+              </div>
             </div>
-            <div className="login-Field">
-              <label htmlFor="">Password</label>
-              <input type="Password" onChange={(e) => {}} />
+            <div className="fromData">
+              <div>
+                <label>Age*</label>
+                <input
+                  type="number"
+                  name="age"
+                  value={age}
+                  onChange={onchange}
+                />
+              </div>
+              <div>
+                <label htmlFor="">No of offence*</label>
+                <input
+                  type="number"
+                  name="offence"
+                  value={noOffence}
+                  onChange={onchange}
+                />
+              </div>
+            </div>
+            <div className="fromData">
+              <div>
+                <label htmlFor="">Address</label>
+                <input
+                  type="address"
+                  name="address"
+                  value={address}
+                  onChange={onchange}
+                />
+              </div>
+            </div>
+            <div className="fromData">
+              <div>
+                <label htmlFor="">Status</label>
+                <input type="checkbox" />
+              </div>
+            </div>
+            <div className="fromData">
+              <div>
+                <label htmlFor="">Image</label>
+                <input type="File" />
+              </div>
             </div>
 
-            <button className="btn">Login</button>
+            <button className="btn">Add</button>
           </form>
         </div>
       </div>
@@ -32,11 +114,9 @@ const Addrecord = () => {
 };
 
 export default Addrecord;
-
-// <p className="errMessage">
-// <p style={{ display: `${userErr ? "block" : "none"}` }}>
-//   Wrong Password
-// </p>
-// <p style={{ display: `${passwordErr ? "block" : "none"}` }}>
-//   Envalid Username
-// </p>
+// <div className="fromData">
+// <div>
+//   <label htmlFor="">Image*</label>
+//   <input type="file" onChange={(e) => setimage(e.target.value)} />
+// </div>
+// </div>

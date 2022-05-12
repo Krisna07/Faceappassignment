@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import Home from "../views/Home";
 import Records from "./Records";
 
@@ -7,9 +7,18 @@ import Footer from "./Footer";
 import logo from "./logo.png";
 import "./layout.css";
 import Addrecord from "../Forms/Addrecord";
-import AlertPage from "../views/AlertPage";
+import { useState, useEffect } from "react";
+import Axios from "axios";
+import ImageInput from "../views/ImageInput";
 
 const Layout = () => {
+  const [criminalList, setCriminalList] = useState([]);
+
+  useEffect(() => {
+    Axios.get("http://localhost:5000/criminal")
+      .then(async (response) => setCriminalList(response.data.message))
+      .catch((err) => console.log(err));
+  }, []);
   return (
     <>
       <nav className="navbar" style={{ color: "white" }}>
@@ -28,10 +37,13 @@ const Layout = () => {
         </div>
       </nav>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="records" element={<Records />} />
+        <Route path="/" element={<Home criminalList={criminalList} />} />
+        <Route
+          path="records"
+          element={<Records criminalList={criminalList} />}
+        />
         <Route path="addrecords" element={<Addrecord />} />
-        <Route path="alert" element={<AlertPage />} />
+        <Route path="addImage" element={<ImageInput />} />
       </Routes>
       <Footer />
     </>
