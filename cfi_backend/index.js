@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/criminal", require("./Routes/criminalRoutes"));
-app.use("/user", require("./Routes/userRoutes.js"));
+app.use("/users", require("./Routes/userRoutes.js"));
 
 // app.use(errorHandler);
 
