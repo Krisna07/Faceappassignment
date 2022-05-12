@@ -30,7 +30,7 @@ const Details = ({ detail }) => {
               marginLeft: "200px",
             }}
           >
-            Image Not found
+            No image source
           </div>
         </div>
         <div className="detailsData">
