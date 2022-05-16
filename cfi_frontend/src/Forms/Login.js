@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "./Login.css";
 import { FaUser } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 // import createHistory from "history/createBrowserHistory";
 
-const Login = () => {
+const Login = ({ user }) => {
   const history = useNavigate();
-  const [user, setUser] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userErr, setUserErr] = useState(false);
   const [passwordErr, setPasswordErr] = useState(false);
@@ -22,13 +22,20 @@ const Login = () => {
       setPasswordErr(true);
     }
   };
+  // const authUser = () => {
+  //   if (email) {
+  //     return user.filter((user) => (user.email = email));
+  //   }
+  // };
+  // console.log(authUser());
 
   const submitForm = (e) => {
     e.preventDefault();
-    if (userValidation()) {
-      localStorage.setItem("user", user);
-      return history("/auth");
+    if (!userValidation) {
+      return history("/");
     }
+
+    history("/auth");
   };
 
   return (
@@ -48,7 +55,7 @@ const Login = () => {
             <input
               type="text"
               onChange={(e) => {
-                setUser(e.target.value);
+                setEmail(e.target.value);
               }}
             />
           </div>
@@ -71,6 +78,13 @@ const Login = () => {
           </div>
 
           <button className="btn">Login</button>
+          <p>
+            New to the app. Please{" "}
+            <Link to={"/regester"} style={{ color: "lightblue" }}>
+              Register
+            </Link>{" "}
+            here.
+          </p>
         </form>
       </div>
     </div>
