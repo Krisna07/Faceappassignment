@@ -9,25 +9,25 @@ const Criminal = require("../Model/criminalModel");
 const getCriminal = asyncHandler(async (req, res) => {
   const criminals = await Criminal.find();
   res.status(200).json({ message: criminals });
-  res.status(500).json({ message: error });
+  res.status(500).json({ message: "Error Occor" });
 });
 
 //@desc set Criminal
 //@routes POST api/Criminal
 //@access Private
 const setCriminal = asyncHandler(async (req, res) => {
-  const { name, Age, NoOffence, Found, Descriptors } = req.body;
+  const { name, age, offence, found, descriptors } = req.body;
 
-  if (!name || !Age || !NoOffence || !Descriptors) {
+  if (!name || !age || !offence) {
     res.status(400);
     throw new Error("Please fill required fields!");
   }
   const criminal = await Criminal.create({
     name,
-    Age,
-    NoOffence,
-    Found,
-    Descriptors,
+    age,
+    offence,
+    found,
+    descriptors,
   });
   res.status(200).json({ criminal });
 });

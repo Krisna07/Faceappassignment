@@ -8,3 +8,9 @@
   background-color: beige;
   font-size: large;
 }
+input {
+  padding: 5px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}

@@ -3,10 +3,14 @@ import React, { useState, useEffect } from "react";
 import "./records.css";
 import { FaEllipsisV, FaEllipsisH } from "react-icons/fa";
 import Details from "./Details";
+import Edit from "./Edit";
+import Delete from "./Delete";
 
 const Records = ({ criminalList }) => {
   const [action, setAction] = useState(false);
   const [detailss, setDetaills] = useState();
+  const [edit, setEdit] = useState();
+  const [remove, setRemove] = useState();
 
   console.log(criminalList);
 
@@ -33,9 +37,23 @@ const Records = ({ criminalList }) => {
     setDetaills(criminalList.find((obj) => obj._id === id));
     console.log(detailss);
   };
-  // const imageSource = (source) => {
-  //   return btoa(String.fromCharCode(...new Uint8Array(source.Image.data.data)));
-  // };
+
+  const editDetails = (id) => {
+    console.log(id);
+
+    setEdit(criminalList.find((obj) => obj._id === id));
+    setDetaills("");
+    setRemove("");
+    console.log(detailss);
+  };
+  const deleteThis = (id) => {
+    console.log(id);
+
+    setRemove(criminalList.find((obj) => obj._id === id));
+    setDetaills("");
+    setEdit("");
+    console.log(detailss);
+  };
 
   return (
     <div className="records">
@@ -82,9 +100,21 @@ const Records = ({ criminalList }) => {
                       >
                         <button
                           style={buttonStyle("green")}
+                          onClick={() => editDetails(criminal._id)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          style={buttonStyle("blue")}
                           onClick={() => viewDetails(criminal._id)}
                         >
                           View
+                        </button>
+                        <button
+                          style={buttonStyle("red")}
+                          onClick={() => deleteThis(criminal._id)}
+                        >
+                          Delete
                         </button>
                       </div>
                     </td>
@@ -97,6 +127,8 @@ const Records = ({ criminalList }) => {
       </div>
       <div className="details">
         {detailss ? <Details detail={detailss} /> : ""}
+        {edit ? <Edit criminal={edit} /> : ""}
+        {remove ? <Delete criminal={remove} /> : ""}
       </div>
     </div>
   );

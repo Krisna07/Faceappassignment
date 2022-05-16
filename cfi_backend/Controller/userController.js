@@ -2,7 +2,6 @@ const asyncHandler = require("express-async-handler");
 
 const User = require("../Model/userModel");
 
-
 //@desc register new user
 //@routes POST api/User
 //@access public
@@ -40,13 +39,11 @@ const registerUser = asyncHandler(async (req, res) => {
       _id: user.id,
       name: user.name,
       email: user.email,
-
     });
   } else {
     res.status(500);
     throw new Error("Invalid user data");
   }
-
   res.send("New user created");
 });
 
@@ -61,12 +58,11 @@ const loginUser = asyncHandler(async (req, res) => {
   }
   //look for the user
   const user = await User.findOne({ email });
-  if (user && (await bcrypt.compare(password, user.password))) {
+  if (user && user.password == password) {
     res.status(200).json({
       _id: user.id,
       name: user.name,
       email: user.email,
-
     });
   } else {
     res.status(500);
@@ -78,7 +74,12 @@ const loginUser = asyncHandler(async (req, res) => {
 //@routes get api/User/me
 //@access private
 const getMe = asyncHandler(async (req, res) => {
-  res.send("user data displayed");
+  const user = await User.findById(req.params.id);
+  if (!user) {
+    res.status(400);
+    throw new Error("Invalid user");
+  }
+  res.status(200).json({ message: user });
 });
 
 module.exports = { registerUser, loginUser, getMe, getUser };
