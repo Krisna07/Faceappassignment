@@ -2,6 +2,12 @@ import React from "react";
 import "./details.css";
 
 const Edit = ({ criminal }) => {
+  const editCriminal = {
+    name: "",
+    age: "",
+    offence: "",
+    status: "",
+  };
   return (
     <div
       style={{

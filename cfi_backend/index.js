@@ -15,7 +15,7 @@ app.use(cors());
 const port = process.env.port || 5000;
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/criminal", require("./Routes/criminalRoutes"));
 app.use("/users", require("./Routes/userRoutes.js"));
 

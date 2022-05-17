@@ -35,6 +35,9 @@ const Records = ({ criminalList }) => {
     console.log(id);
 
     setDetaills(criminalList.find((obj) => obj._id === id));
+    setEdit("");
+    setRemove("");
+
     console.log(detailss);
   };
 

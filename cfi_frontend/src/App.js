@@ -10,7 +10,7 @@ import Regester from "./Forms/Regester";
 function App() {
   const [users, setUsers] = useState();
   useEffect(() => {
-    Axios.get("http://localhost:5000/users/:id")
+    Axios.get("http://localhost:5000/users")
       .then(async (response) => setUsers(response.data.message))
       .catch((err) => console.log(err));
   }, []);

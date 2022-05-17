@@ -16,6 +16,10 @@ import { useNavigate } from "react-router-dom";
 const Layout = () => {
   const history = useNavigate();
   const [criminalList, setCriminalList] = useState([]);
+  const getuser = JSON.parse(localStorage.getItem("user"));
+  if (!getuser) {
+    history("/login");
+  }
 
   useEffect(() => {
     Axios.get("http://localhost:5000/criminal")

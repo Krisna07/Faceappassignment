@@ -34,6 +34,12 @@ const Home = ({ criminalList }) => {
       console.log(response);
     });
   }
+  //   const isAdmin = () => {
+  //     if (user.isAdmin) {
+  //     return addImage.style.display = "block"
+  //     }
+  //     addImage.style.display = "none"
+  //  }
 
   return (
     <div style={{ width: "100%", position: "relative" }}>

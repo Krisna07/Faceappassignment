@@ -12,7 +12,7 @@ const getUser = asyncHandler(async (req, res) => {
 });
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, batchid, department } = req.body;
   if (!name || !email || !password) {
     res.status(400);
     throw new Error("Please check The fields!!");
@@ -32,6 +32,8 @@ const registerUser = asyncHandler(async (req, res) => {
     name,
     email,
     password,
+    batchid,
+    department,
   });
 
   if (user) {
@@ -39,6 +41,8 @@ const registerUser = asyncHandler(async (req, res) => {
       _id: user.id,
       name: user.name,
       email: user.email,
+      department: user.department,
+      batchid: user.batchid,
     });
   } else {
     res.status(500);
@@ -51,7 +55,7 @@ const registerUser = asyncHandler(async (req, res) => {
 // routes post api/user
 //access public
 const loginUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, OTP } = req.body;
   if (!email || !password) {
     res.status(400);
     throw new Error("Please check The fields!!");
@@ -59,10 +63,12 @@ const loginUser = asyncHandler(async (req, res) => {
   //look for the user
   const user = await User.findOne({ email });
   if (user && user.password == password) {
+    user.OTP = OTP;
     res.status(200).json({
       _id: user.id,
       name: user.name,
       email: user.email,
+      OTP: user.OTP,
     });
   } else {
     res.status(500);

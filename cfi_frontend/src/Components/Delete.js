@@ -2,17 +2,17 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 const Delete = ({ criminal }) => {
-  const [crime, setCriminal] = useState(criminal);
+  const [crime, setCriminal] = useState(true);
 
   const goback = () => {
-    setCriminal("");
+    setCriminal(!crime);
   };
   return (
     <div
       style={{
         width: "400px",
         background: "cyan",
-        display: "flex",
+        display: crime ? "flex" : "none",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",

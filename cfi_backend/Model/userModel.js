@@ -12,9 +12,22 @@ const userSchema = mongoose.Schema(
       require: [true, "Please add an email"],
       unique: true,
     },
+    batchid: {
+      type: String,
+      require: [true, "Please add an email"],
+      unique: true,
+    },
+    department: {
+      type: String,
+      require: [true, "Please add a depatment location"],
+    },
     password: {
       type: String,
       require: [true, "Please add a Password"],
+    },
+    OTP: {
+      type: String,
+      require: [false],
     },
   },
   {
