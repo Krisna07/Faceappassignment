@@ -21,12 +21,6 @@ const Layout = () => {
     history("/login");
   }
 
-  useEffect(() => {
-    Axios.get("http://localhost:5000/criminal")
-      .then(async (response) => setCriminalList(response.data.message))
-      .catch((err) => console.log(err));
-  }, []);
-
   const logout = () => {
     localStorage.clear();
     history("/login");
@@ -44,7 +38,7 @@ const Layout = () => {
             <Link to="records">Records</Link>
           </li>
           <li>
-            <Link to="addrecords">Add Records</Link>
+            <Link to="addrecord">Add Records</Link>
           </li>
           <li>
             <Link to="contactus">Contact Us</Link>
@@ -53,12 +47,15 @@ const Layout = () => {
         </div>
       </nav>
       <Routes>
-        <Route path="/" element={<Home criminalList={criminalList} />} />
+        <Route
+          path="/"
+          element={<Home criminalList={criminalList} user={getuser} />}
+        />
         <Route
           path="records"
           element={<Records criminalList={criminalList} />}
         />
-        <Route path="addrecords" element={<Addrecord />} />
+        <Route path="addrecord" element={<Addrecord />} />
         <Route path="addImage" element={<ImageInput />} />
         <Route path="contactus" element={<Contactus />} />
       </Routes>

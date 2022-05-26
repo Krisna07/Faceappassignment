@@ -1,24 +1,23 @@
 import React, { useState, useEffect } from "react";
-
+import Axios from "axios";
 import "./records.css";
 import { FaEllipsisV, FaEllipsisH } from "react-icons/fa";
 import Details from "./Details";
 import Edit from "./Edit";
 import Delete from "./Delete";
 
-const Records = ({ criminalList }) => {
-  const [action, setAction] = useState(false);
+const Records = ({ setCriminalList }) => {
+  const [criminals, setCriminals] = useState([]);
+  useEffect(() => {
+    Axios.get("http://localhost:5000/criminal")
+      .then(async (response) => setCriminals(response.data.message))
+      .catch((err) => console.log(err));
+  }, []);
+  setCriminalList = criminals;
   const [detailss, setDetaills] = useState();
   const [edit, setEdit] = useState();
   const [remove, setRemove] = useState();
-
-  console.log(criminalList);
-
-  // criminalList.map((criminal) => {
-  //   if (criminal.Image) {
-  //     console.log(criminal.Image.data.data);
-  //   }
-  // });
+  console.log(criminals);
   const buttonStyle = (color) => {
     return {
       margin: "0 2px",
@@ -34,7 +33,7 @@ const Records = ({ criminalList }) => {
   const viewDetails = (id) => {
     console.log(id);
 
-    setDetaills(criminalList.find((obj) => obj._id === id));
+    setDetaills(criminals.find((obj) => obj._id === id));
     setEdit("");
     setRemove("");
 
@@ -44,7 +43,7 @@ const Records = ({ criminalList }) => {
   const editDetails = (id) => {
     console.log(id);
 
-    setEdit(criminalList.find((obj) => obj._id === id));
+    setEdit(criminals.find((obj) => obj._id === id));
     setDetaills("");
     setRemove("");
     console.log(detailss);
@@ -52,7 +51,7 @@ const Records = ({ criminalList }) => {
   const deleteThis = (id) => {
     console.log(id);
 
-    setRemove(criminalList.find((obj) => obj._id === id));
+    setRemove(criminals.find((obj) => obj._id === id));
     setDetaills("");
     setEdit("");
     console.log(detailss);
@@ -73,7 +72,7 @@ const Records = ({ criminalList }) => {
               </tr>
             </thead>
             <tbody>
-              {criminalList.map((criminal) => {
+              {criminals.map((criminal) => {
                 // const imageData = btoa(
                 //   String.fromCharCode(
                 //     ...new Uint8Array(criminal.Image.data.data)
@@ -83,8 +82,8 @@ const Records = ({ criminalList }) => {
                 return (
                   <tr key={criminal._id}>
                     <td>{criminal.name}</td>
-                    <td>{criminal.Age}</td>
-                    <td>{criminal.NoOffence}</td>
+                    <td>{criminal.age}</td>
+                    <td>{criminal.offence}</td>
 
                     <td
                       style={{
@@ -129,9 +128,9 @@ const Records = ({ criminalList }) => {
         </div>
       </div>
       <div className="details">
-        {detailss ? <Details detail={detailss} /> : ""}
-        {edit ? <Edit criminal={edit} /> : ""}
-        {remove ? <Delete criminal={remove} /> : ""}
+        {detailss ? <Details detail={detailss} setDetail={setDetaills} /> : ""}
+        {edit ? <Edit edit={edit} setEdit={setEdit} /> : ""}
+        {remove ? <Delete remove={remove} setRemove={setRemove} /> : ""}
       </div>
     </div>
   );

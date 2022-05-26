@@ -1,49 +1,31 @@
 import React from "react";
 import "./details.css";
+import { FaTimes } from "react-icons/fa";
 
-const Details = ({ detail }) => {
+const Details = ({ detail, setDetail }) => {
+  const closeView = () => setDetail(!detail);
   return (
-    <div
-      style={{
-        width: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <div
-        style={{
-          width: "600px",
-          disply: "flex",
-        }}
-      >
+    <div className="mainContainer">
+      <div className="inpageForms">
         <h2>Criminal Details</h2>
-        <div className="detailsData">
-          <div
-            style={{
-              width: "100px",
-              height: "100px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: "cyan",
-              marginLeft: "200px",
-            }}
-          >
-            No image source
+        <div className="imageContainer">
+          <div className="image">No image source</div>
+          <div className="close_icon" onClick={closeView}>
+            <FaTimes />
           </div>
         </div>
         <div className="detailsData">
-          Full Name <span></span> <span>{detail.name}</span>
+          <label> Full Name</label> <span></span> <span>{detail.name}</span>
         </div>
         <div className="detailsData">
-          Age <span></span> <span>{detail.Age}</span>
+          <label htmlFor="">Age</label> <span></span> <span>{detail.Age}</span>
         </div>
         <div className="detailsData">
-          No offence <span></span> <span>{detail.NoOffence}</span>
+          <label htmlFor=""> No offence</label> <span></span>{" "}
+          <span>{detail.NoOffence}</span>
         </div>
         <div className="detailsData">
-          Status <span></span> <span>On run</span>
+          <label htmlFor="">Status</label> <span></span> <span>On run</span>
         </div>
       </div>
     </div>

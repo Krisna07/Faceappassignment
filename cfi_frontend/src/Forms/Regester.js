@@ -14,10 +14,11 @@ const Regester = () => {
   const [password, setpassword] = useState();
   const [repassword, setRepassword] = useState();
   const [err, setErr] = useState();
+
   const submitForm = (e) => {
     e.preventDefault();
-
-    if (password !== repassword) {
+    console.log("from submitted");
+    if (!password || password !== repassword) {
       return setErr("Password not matched");
     }
     axios

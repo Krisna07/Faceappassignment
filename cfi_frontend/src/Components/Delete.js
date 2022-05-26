@@ -1,39 +1,54 @@
+import axios from "axios";
 import React from "react";
-import { useState, useEffect } from "react";
+import { FaTimes } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
-const Delete = ({ criminal }) => {
-  const [crime, setCriminal] = useState(true);
-
+const Delete = ({ remove, setRemove }) => {
+  const history = useNavigate();
   const goback = () => {
-    setCriminal(!crime);
+    setRemove(!remove);
+  };
+  const deleteAlert = {
+    width: "30%",
+    padding: ".5rem",
+    background: "aqua",
+    position: "absolute",
+    top: "35%",
+    left: "35%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "20px",
+  };
+  const deleteCriminal = () => {
+    if (remove) {
+      axios
+        .delete(`http://localhost:5000/criminal/${remove._id}`)
+        .then((res) => {
+          console.log(res);
+          history("/records");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
   return (
-    <div
-      style={{
-        width: "400px",
-        background: "cyan",
-        display: crime ? "flex" : "none",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "1rem",
-        borderRadius: "10px",
-        position: "fixed",
-        top: "20%",
-        left: "40%",
-      }}
-    >
-      <p
-        style={{ width: "90%", textAlign: "right", fontSize: "20px" }}
-        onClick={goback}
-      >
-        x
-      </p>
-      <p>Are you sure You want to delete {criminal.name} ?</p>
-      <p>
-        Even the data is deleted it will be stored in database for future use.
-        Thanks
-      </p>
+    <div style={deleteAlert}>
+      <div onClick={goback} style={{ margin: ".5rem" }}>
+        <FaTimes
+          style={{
+            fontSize: "20px",
+            textAlign: "right",
+            position: "absolute",
+            left: "90%",
+            top: "10%",
+          }}
+        />
+      </div>
+      <p>Are you sure You want to delete {remove.name} ?</p>
+
       <div
         style={{
           width: "200px",
@@ -50,6 +65,7 @@ const Delete = ({ criminal }) => {
             outline: "none",
             background: "white",
           }}
+          onClick={deleteCriminal}
         >
           Yes
         </button>
@@ -61,6 +77,7 @@ const Delete = ({ criminal }) => {
             outline: "none",
             background: "lightgreen",
           }}
+          onClick={goback}
         >
           No
         </button>

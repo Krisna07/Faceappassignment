@@ -4,27 +4,35 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Addrecord = () => {
-  const [formData, setFromdata] = useState({
-    name: "",
-    lastname: "",
-    age: "",
-    noOffence: "",
-    address: "",
-  });
-  const { name, age, noOffence, address, lastname } = formData;
+  const [name, setName] = useState();
+  const [firstname, setFirstname] = useState();
+  const [lastname, setLastname] = useState();
+  const [age, setAge] = useState();
+  const [offence, setoffence] = useState();
+  const [address, setAddress] = useState();
+  const [status, setStatus] = useState();
+  const [err, setErr] = useState();
+
   const history = useNavigate();
 
-  const onchange = (e) => {
-    setFromdata((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
   const onsubmit = (e) => {
     e.preventDefault();
-    history("/");
+    setName(firstname + " " + lastname);
 
-    // axios.post("http://localhost:5000/criminal/");
+    axios
+      .post("http://localhost:5000/criminal", {
+        name: name,
+        age: age,
+        offence: offence,
+        address: address,
+      })
+      .then((res) => {
+        console.log(res);
+        history("/");
+      })
+      .catch((err) => {
+        setErr(err);
+      });
   };
 
   return (
@@ -50,38 +58,27 @@ const Addrecord = () => {
                 <label htmlFor="">First Name*</label>
                 <input
                   type="text"
-                  value={name}
-                  name="name"
-                  onChange={onchange}
+                  onChange={(e) => setFirstname(e.target.value)}
                 />
               </div>
               <div>
                 <label htmlFor="">Last Name*</label>
                 <input
                   type="text"
-                  value={lastname}
-                  name="lastname"
-                  onChange={onchange}
+                  onChange={(e) => setLastname(e.target.value)}
                 />
               </div>
             </div>
             <div className="fromData">
               <div>
                 <label>Age*</label>
-                <input
-                  type="number"
-                  name="age"
-                  value={age}
-                  onChange={onchange}
-                />
+                <input type="number" onChange={(e) => setAge(e.target.value)} />
               </div>
               <div>
                 <label htmlFor="">No of offence*</label>
                 <input
                   type="number"
-                  name="offence"
-                  value={noOffence}
-                  onChange={onchange}
+                  onChange={(e) => setoffence(e.target.value)}
                 />
               </div>
             </div>
@@ -90,16 +87,17 @@ const Addrecord = () => {
                 <label htmlFor="">Address</label>
                 <input
                   type="address"
-                  name="address"
-                  value={address}
-                  onChange={onchange}
+                  onChange={(e) => setAddress(e.target.value)}
                 />
               </div>
             </div>
             <div className="fromData">
               <div>
                 <label htmlFor="">Status</label>
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  onChange={(e) => setStatus(e.target.value)}
+                />
               </div>
             </div>
             <div className="fromData">
@@ -108,7 +106,7 @@ const Addrecord = () => {
                 <input type="File" />
               </div>
             </div>
-
+            <div>{setErr}</div>
             <button className="btn">Add</button>
           </form>
         </div>

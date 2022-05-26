@@ -29,7 +29,7 @@ const setCriminal = asyncHandler(async (req, res) => {
     found,
     descriptors,
   });
-  res.status(200).json({ criminal });
+  res.status(200).json({ Criminal });
 });
 
 //@desc update Criminal

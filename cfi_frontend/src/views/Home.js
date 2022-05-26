@@ -7,7 +7,7 @@ import AlertPage from "./AlertPage";
 
 import VideoInput from "./VideoInput";
 
-const Home = ({ criminalList }) => {
+const Home = ({ criminalList, user }) => {
   const history = useNavigate();
   const getCriminal = () => {
     return localStorage.getItem("Matched");
@@ -15,18 +15,15 @@ const Home = ({ criminalList }) => {
 
   useEffect(() => {
     const getUser = localStorage.getItem("user");
-    console.log(getUser);
+
     if (!getUser) {
       history("/login");
     }
   }, []);
-
+  console.log(user);
   const [criminalProfile, setCriminalProfile] = useState();
   const found = getCriminal();
-  console.log(found);
 
-  console.log(criminalList);
-  console.log(criminalProfile);
   if (criminalProfile) {
     Axios.put(`http://localhost:5000/criminal/${criminalProfile._id}`, {
       Found: true,
@@ -43,6 +40,7 @@ const Home = ({ criminalList }) => {
 
   return (
     <div style={{ width: "100%", position: "relative" }}>
+      <p>Hi {user.name}</p>
       <h1>Camera</h1>
       <VideoInput />
 

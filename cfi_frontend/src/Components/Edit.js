@@ -1,81 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
 import "./details.css";
+import { FaTimes, FaRunning, FaLock } from "react-icons/fa";
 
-const Edit = ({ criminal }) => {
+const Edit = ({ edit, setEdit }) => {
   const editCriminal = {
     name: "",
     age: "",
     offence: "",
     status: "",
   };
+  const closeEdits = () => {
+    setEdit(!edit);
+  };
   return (
-    <div
-      style={{
-        width: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <div
-        style={{
-          width: "600px",
-          disply: "flex",
-        }}
-      >
+    <div className="mainContainer">
+      <div className="inpageForms">
         <h2>Edit Criminal</h2>
-        <div className="detailsData">
-          <div
-            style={{
-              width: "100px",
-              height: "100px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: "cyan",
-              marginLeft: "200px",
-            }}
-          >
-            No image source
+        <div className="imageContainer">
+          <div className="image">No image source</div>
+          <div className="close_icon" onClick={closeEdits}>
+            <FaTimes />
           </div>
         </div>
+
         <div className="detailsData">
-          Full Name <span></span>
-          <input type="text" placeholder={criminal.name} />
+          <label>Full Name </label>
+          <input type="text" placeholder={edit.name} className="changeInput" />
         </div>
         <div className="detailsData">
-          Age
-          <input type="text" placeholder={criminal.Age} />
+          <label>Age </label>
+          <input type="text" placeholder={edit.age} className="changeInput" />
         </div>
         <div className="detailsData">
-          No offence
-          <input type="text" placeholder={criminal.NoOffence} />
+          <label>Offence Number </label>
+          <input
+            type="text"
+            placeholder={edit.offence}
+            className="changeInput"
+          />
         </div>
         <div className="detailsData">
-          Status <span></span>{" "}
+          <label>Status </label>
           <span>
-            <select name="" id="" style={{ width: "150px" }}>
+            <select
+              style={{ width: "200px", padding: ".3rem 2rem" }}
+              className="changeInput"
+            >
               <option value="">On run</option>
               <option value="">Found</option>
             </select>
           </span>
         </div>
         <div className="detailsData">
-          Upload Image
-          <input type="file" />
+          <label>Upload Image </label>
+          <input
+            type="file"
+            className="changeInput"
+            style={{ color: "white" }}
+          />
         </div>
         <div className="detailsData" style={{ justifyContent: "center" }}>
-          <button
-            style={{
-              padding: "10px 15px",
-              borderRadius: "8px",
-              border: "none",
-              outline: "none",
-              background: "lightgreen",
-            }}
-          >
-            Submit
-          </button>
+          <button className="submit_btn">Submit</button>
         </div>
       </div>
     </div>
